@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <title>試題產生器</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-6 mt-4 m-auto content-center">
+            <div>
+                <h2>試題產生器</h2>
+            </div>
+            <div>
+                <h5>步驟說明：</h5>
+            </div>
+            <div>
+                <p>1.將試題題庫按格式貼進隨附的.csv範例檔案內（可用Excel開啟）。<br />2. 填完後另存成.csv檔（UTF-8格式）。<br />3. 選擇是否要附答案，填入要抽幾題出來。<br />4.
+                    一鍵生成，隨機選出的試題將印在網頁上。 <br />4. 複製文字貼進word檔內，完成試卷或答案卷
+                </p>
+            </div>
+        </div>
+        <div class="col-6 mt-4 m-auto">
+            <input type="file" name="file" id="csv" class="form-control mb-2" accept=".csv" />
+            <div class="row justify-content-evenly">
+                <button class="btn btn-primary mb-2 mt-2 col-2" onclick="readCsv(2, false)">生成試卷</button>
+                <button class="btn btn-success mb-2 mt-2 col-2" onclick="readCsv(2, true)">生成答案卷</button>
+            </div>
+
+        </div>
+        <div class="col-6 m-auto mt-2">
+            <div class="col-10 m-auto" id="testContent"></div>
+
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <script src="CsvReader.js"></script>
+
+</body>
+
+</html>
