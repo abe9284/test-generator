@@ -1,3 +1,17 @@
+import { createApp } from 'https://unpkg.com/petite-vue?module'
+
+createApp({
+    // exposed to all expressions
+    number: 0,
+    // getters
+
+    // methods
+    genTestContent(withAnswer) {
+        readCsv(this.number, withAnswer);
+    },
+
+}).mount();
+
 class Test {
     number;
     question;
@@ -31,7 +45,7 @@ class Test {
      * 可自行決定要不要呈現答案
      */
     genContent = (withAnswer) => {
-        return `(${withAnswer ? this.answer : ' '}) ${this.number}. ${this.question} <br/>${this._genOptions()}`
+        return `(${withAnswer ? ` ${this.answer?.trim()} ` : ' '}) ${this.number}. ${this.question} <br/>${this._genOptions()}`
     }
 
 }
@@ -59,7 +73,7 @@ function _randomPick(arr, needNum) {
 function _arrangeData(data, needNum, withAnswer) {
     const rowArr = _randomPick(data.split('\n'), needNum);
     const testArr = [];
-    for (row of rowArr) {
+    for (let row of rowArr) {
         const i = rowArr.indexOf(row);
         if (i > 0) {
             const colArr = row.split(',');
