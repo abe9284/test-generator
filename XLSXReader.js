@@ -60,7 +60,6 @@ function downloadExcel(data, header, filename = 'output.xlsx') {
     const worksheet = XLSX.utils.json_to_sheet(data, {header: [header] }); // Convert JSON data to worksheet
     const workbook = XLSX.utils.book_new(); // Create a new workbook
     XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1"); // Add the worksheet
-    console.log(worksheet);
 
     const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' }); // Convert workbook to binary Excel file
 
@@ -94,7 +93,6 @@ function _randomPick(arr, needNum) {
     const resultSet = new Set();
     while (resultSet.size < needNum) {
         const randomNum = Math.floor(Math.random() * totalNum);
-        console.log(randomNum)
         resultSet.add(randomNum);
     }
 
