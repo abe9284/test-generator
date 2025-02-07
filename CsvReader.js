@@ -1,73 +1,4 @@
-import { createApp } from 'https://unpkg.com/petite-vue?module'
-
-createApp({
-    // exposed to all expressions
-    number: 0,
-    // getters
-
-    // methods
-    genTestContent(withAnswer) {
-        readCsv(this.number, withAnswer);
-    },
-
-}).mount();
-
-class Test {
-    number;
-    question;
-    optionA;
-    optionB;
-    optionC;
-    optionD;
-    answer;
-    _optionTitle = ['(A)', '(B)', '(C)', '(D)']
-
-    constructor(number, question, optionA, optionB, optionC, optionD, answer) {
-        this.number = number;
-        this.question = question;
-        this.optionA = optionA;
-        this.optionB = optionB;
-        this.optionC = optionC;
-        this.optionD = optionD;
-        this.answer = answer;
-    }
-
-    /** 將答案組合成(A)(B)(C)(D)字串，以空格分開 */
-    _genOptions = () => {
-        const options = [this.optionA, this.optionB, this.optionC, this.optionD];
-        return options.map((opt, i) => `${this._optionTitle[i]} ${opt}`).join(' ');
-    }
-
-    /** 將整個題目組合成 
-     * ( ) 1. 題目 
-     *         答案
-     * 的字串
-     * 可自行決定要不要呈現答案
-     */
-    genContent = (withAnswer) => {
-        return `(${withAnswer ? ` ${this.answer?.trim()} ` : ' '}) ${this.number}. ${this.question} <br/>${this._genOptions()}`
-    }
-
-}
-
-function _randomPick(arr, needNum) {
-    if (!Array.isArray(arr) || !needNum || Number.isNaN(+needNum)) {
-        alert('資料有誤');
-        return [];
-    }
-    const totalNum = arr.length;
-    if (+needNum > totalNum) {
-        alert('所需題數多過總題數');
-        return [];
-    }
-    const resultSet = new Set();
-    while (resultSet.size <= needNum) {
-        const randomNum = Math.floor(Math.random() * totalNum);
-        resultSet.add(randomNum);
-    }
-
-    return arr.filter((_, i) => resultSet.has(i));
-}
+// deprecated
 
 /** 整理資料，依照需要的題數 & 是否需要答案產出 */
 function _arrangeData(data, needNum, withAnswer) {
@@ -112,4 +43,61 @@ function readCsv(needNum, withAnswer) {
     } else {
         alert('請上傳檔案');
     }
+}
+
+
+/** 將題目轉成test物件 */
+function parseQuestion(inputString, index) {
+    // Split the string by the pattern (number) with optional whitespace around it.
+    const parts = inputString.split(/\s*\（\d+\）\s*/);
+
+    // Filter out any empty strings that might result from the split.
+    const filteredParts = parts.filter(part => part !== "").map(str => str.trim());
+
+    return new Test(
+        index + 1,
+        filteredParts[0],
+        filteredParts[1] || '',
+        filteredParts[2] || '',
+        filteredParts[3] || '',
+        filteredParts[4] || '',
+    );
+}
+
+class Test {
+    number;
+    question;
+    optionA;
+    optionB;
+    optionC;
+    optionD;
+    answer;
+    _optionTitle = ['(A)', '(B)', '(C)', '(D)']
+
+    constructor(number, question, optionA, optionB, optionC, optionD, answer) {
+        this.number = number;
+        this.question = question;
+        this.optionA = optionA;
+        this.optionB = optionB;
+        this.optionC = optionC;
+        this.optionD = optionD;
+        this.answer = answer;
+    }
+
+    /** 將答案組合成(A)(B)(C)(D)字串，以空格分開 */
+    _genOptions = () => {
+        const options = [this.optionA, this.optionB, this.optionC, this.optionD];
+        return options.map((opt, i) => `${this._optionTitle[i]} ${opt}`).join(' ');
+    }
+
+    /** 將整個題目組合成 
+     * ( ) 1. 題目 
+     *         答案
+     * 的字串
+     * 可自行決定要不要呈現答案
+     */
+    genContent = (withAnswer) => {
+        return `(${withAnswer ? ` ${this.answer?.trim()} ` : ' '}) ${this.number}. ${this.question} <br/>${this._genOptions()}`
+    }
+
 }

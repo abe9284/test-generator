@@ -26,9 +26,10 @@
         </div>
         <div class="col-6 mt-4 m-auto">
             <div class="row mt-2">
-                <input type="file" name="file" id="csv" class="form-control" accept=".csv" />
+                <input type="file" name="file" id="csv" class="form-control" accept=".csv, .xlsx, .xls"
+                    @change="handleFileChange" />
             </div>
-            
+
             <div class="row mt-2">
                 <label for="numberInput" class="form-label">題目數：</label>
                 <input type="number" class="form-control" id="numberInput" v-model="number">
@@ -48,7 +49,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
-    <script type="module" src="CsvReader.js"></script>
+    <script type="module" src="XLSXReader.js"></script>
 
 </body>
 
